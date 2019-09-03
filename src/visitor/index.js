@@ -143,7 +143,7 @@ function isFunctionMixin(nodes) {
 }
 
 function getIndentation() {
-  return repeatString(' ', indentationLevel * 2)
+  return repeatString(' ', indentationLevel * 4)
 }
 
 function handleLinenoAndIndentation({ lineno }) {
@@ -251,12 +251,12 @@ function visitBlock(node) {
   invariant(node, 'Missing node param');
   indentationLevel++
   const before = ' {'
-  const after = `\n${repeatString(' ', (indentationLevel - 1) * 2)}}`
+  const after = `\n${repeatString(' ', (indentationLevel - 1) * 4)}}`
   const text = visitNodes(node.nodes)
   let result = text
   if (isFunction && !/@return/.test(text)) {
     result = ''
-    const symbol = repeatString(' ', indentationLevel * 2)
+    const symbol = repeatString(' ', indentationLevel * 4)
     if (!/\n/.test(text)) {
       result += '\n'
       oldLineno++
@@ -264,7 +264,7 @@ function visitBlock(node) {
     if (!/\s/.test(text)) result += symbol
     result += returnSymbol + text
   }
-  if (!/^\n\s*/.test(result)) result = '\n' + repeatString(' ', indentationLevel * 2) + result
+  if (!/^\n\s*/.test(result)) result = '\n' + repeatString(' ', indentationLevel * 4) + result
   indentationLevel--
   isBlock = false
   return `${before}${result}${after}`
@@ -686,7 +686,7 @@ function visitAtrule(node) {
 function visitObject({ vals, lineno }) {
   isObject = true
   indentationLevel++
-  const before = repeatString(' ', indentationLevel * 2)
+  const before = repeatString(' ', indentationLevel * 4)
   let result = ``
   let count = 0
   for (let key in vals) {
@@ -699,7 +699,7 @@ function visitObject({ vals, lineno }) {
   oldLineno = totalLineno > oldLineno ? totalLineno : oldLineno
   indentationLevel--
   isObject = false
-  return `(${result}\n${repeatString(' ', indentationLevel * 2)})`
+  return `(${result}\n${repeatString(' ', indentationLevel * 4)})`
 }
 
 function visitCharset({ val: { val: value, quote }, lineno }) {
