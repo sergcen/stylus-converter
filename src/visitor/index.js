@@ -243,7 +243,7 @@ function visitGroup(node) {
     const len = getCharLength(selector, ' ') - 2
     return `\n${repeatString(' ', len)}#{${trimFirst(selector)}}${block}`
   }
-  return selector + block
+  return before + selector + block
 }
 
 function visitBlock(node) {
