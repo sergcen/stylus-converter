@@ -313,7 +313,8 @@ function visitIdent({ val, name, rest, mixin, property }) {
   if (identVal.__type === 'Null' || !val) {
     if (isExpression) {
       if (property || isCall) {
-        const propertyVal = PROPERTY_LIST.find(item => item.prop === name)
+        // skip css variables
+        const propertyVal = PROPERTY_LIST.find(item => item.prop === name && !name.startsWith('--'))
         if (propertyVal) {
           identLength--
           return propertyVal.value
